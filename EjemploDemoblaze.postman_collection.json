@@ -1,0 +1,238 @@
+{
+	"info": {
+		"_postman_id": "faa2684b-c54f-4a7f-aecb-d29577bd5bf3",
+		"name": "EjemploDemoblaze",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6373726",
+		"_collection_link": "https://orange-shadow-2486.postman.co/workspace/Trabajo~36baf7af-aa3c-49b2-8d21-edb89a4e8099/collection/6373726-faa2684b-c54f-4a7f-aecb-d29577bd5bf3?action=share&source=collection_link&creator=6373726"
+	},
+	"item": [
+		{
+			"name": "Signup Test-Crear un nuevo usuario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"✅ Usuario nuevo creado correctamente\", function () {\r",
+							"    const res = pm.response.json();\r",
+							"    pm.expect(res.message).to.include(\"Sign up successful.\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"{{username}}\",\r\n  \"password\": \"{{password}}\"\r\n}\r\n"
+				},
+				"url": {
+					"raw": "https://api.demoblaze.com/signup",
+					"protocol": "https",
+					"host": [
+						"api",
+						"demoblaze",
+						"com"
+					],
+					"path": [
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Signup Test-Intentar crear el mismo usuario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"⚠️ Usuario ya existe\", function () {\r",
+							"    const res = pm.response.json();\r",
+							"    pm.expect(res.errorMessage).to.include(\"This user already exist.\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"{{username}}\",\r\n  \"password\": \"{{password}}\"\r\n}\r\n"
+				},
+				"url": {
+					"raw": "https://api.demoblaze.com/signup",
+					"protocol": "https",
+					"host": [
+						"api",
+						"demoblaze",
+						"com"
+					],
+					"path": [
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login-usuario y password correctos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"✅ Login exitoso con usuario correcto\", function () {\r",
+							"    const res = pm.response.json();\r",
+							"    pm.expect(res).to.have.property(\"Auth_token\");\r",
+							"    pm.collectionVariables.set(\"auth_token\", res.Auth_token);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"{{username}}\",\r\n  \"password\": \"{{password}}\"\r\n}"
+				},
+				"url": {
+					"raw": "https://api.demoblaze.com/login",
+					"protocol": "https",
+					"host": [
+						"api",
+						"demoblaze",
+						"com"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login-password incorrecto",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"❌ Login falla con password incorrecto\", function () {\r",
+							"    const res = pm.response.json();\r",
+							"    pm.expect(res.errorMessage).to.include(\"Wrong password.\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"{{username}}\",\r\n  \"password\": \"{{password}}\"\r\n}"
+				},
+				"url": {
+					"raw": "https://api.demoblaze.com/login",
+					"protocol": "https",
+					"host": [
+						"api",
+						"demoblaze",
+						"com"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "timestamp",
+			"value": "{{$timestamp}}",
+			"disabled": true,
+			"description": {
+				"content": "",
+				"type": "text/plain"
+			}
+		},
+		{
+			"key": "username",
+			"value": "usuario_test_{{$timestamp}}"
+		},
+		{
+			"key": "password",
+			"value": "clave123"
+		},
+		{
+			"key": "badPassword",
+			"value": "incorrecta123"
+		}
+	]
+}
